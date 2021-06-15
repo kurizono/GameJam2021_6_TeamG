@@ -74,7 +74,7 @@
     <Compile Include="Assets\Script\Title\OptionButton.cs" />
     <Compile Include="Assets\Script\Title\StoryButton.cs" />
     <Compile Include="Assets\Script\Title\TitleController.cs" />
-    <None Include="Assets\Resources\Scenario\シナリオ1.txt" />
+    <None Include="Assets\Resources\シナリオ1.txt" />
     <None Include="Assets\Resources\Scenario\K_シナリオ04.txt" />
     <None Include="Assets\Resources\Scenario\K_シナリオ02.txt" />
     <None Include="Assets\Resources\Scenario\シナリオ2.txt" />
@@ -82,8 +82,8 @@
     <None Include="Assets\Resources\Scenario\K_シナリオ01.txt" />
     <None Include="Assets\Resources\Scenario\シナリオ5.txt" />
     <None Include="Assets\Resources\Scenario\シナリオ3.txt" />
-    <None Include="Assets\Resources\Scenario\テンプレート.txt" />
-    <None Include="Assets\Resources\Scenario\memo3.txt" />
+    <None Include="Assets\Resources\テンプレート.txt" />
+    <None Include="Assets\Resources\memo3.txt" />
     <None Include="Assets\Resources\Scenario\K_シナリオ03.txt" />
     <Reference Include="UnityEngine">
       <HintPath>D:/UnityFile/2019.4.16f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
