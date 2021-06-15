@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{8D737DBE-E627-BEE9-A979-1AA274F5BBFF}</ProjectGuid>
+    <ProjectGuid>{CA02B710-6C4E-F535-3222-C7050B1DC1FF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -64,13 +64,27 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Script\CharaController.cs" />
-    <Compile Include="Assets\Script\CharaStop.cs" />
     <Compile Include="Assets\Script\CharaTalk.cs" />
-    <Compile Include="Assets\Script\CharaTurn.cs" />
+    <Compile Include="Assets\Script\Game\CharaController.cs" />
+    <Compile Include="Assets\Script\Game\CharaStop.cs" />
+    <Compile Include="Assets\Script\Game\CharaTurn.cs" />
     <Compile Include="Assets\Script\Music.cs" />
-    <Compile Include="Assets\Script\Title\TitleButton.cs" />
-    <None Include="Assets\Resources\memo2.txt" />
+    <Compile Include="Assets\Script\TalkController.cs" />
+    <Compile Include="Assets\Script\Title\HomeButton.cs" />
+    <Compile Include="Assets\Script\Title\OptionButton.cs" />
+    <Compile Include="Assets\Script\Title\StoryButton.cs" />
+    <Compile Include="Assets\Script\Title\TitleController.cs" />
+    <None Include="Assets\Resources\Scenario\シナリオ1.txt" />
+    <None Include="Assets\Resources\Scenario\K_シナリオ04.txt" />
+    <None Include="Assets\Resources\Scenario\K_シナリオ02.txt" />
+    <None Include="Assets\Resources\Scenario\シナリオ2.txt" />
+    <None Include="Assets\Resources\Scenario\シナリオ4.txt" />
+    <None Include="Assets\Resources\Scenario\K_シナリオ01.txt" />
+    <None Include="Assets\Resources\Scenario\シナリオ5.txt" />
+    <None Include="Assets\Resources\Scenario\シナリオ3.txt" />
+    <None Include="Assets\Resources\Scenario\テンプレート.txt" />
+    <None Include="Assets\Resources\Scenario\memo3.txt" />
+    <None Include="Assets\Resources\Scenario\K_シナリオ03.txt" />
     <Reference Include="UnityEngine">
       <HintPath>D:/UnityFile/2019.4.16f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
@@ -255,7 +269,7 @@
       <HintPath>D:/UnityFile/2019.4.16f1/Editor/Data/Managed/UnityEditor.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
-      <HintPath>D:/git/gamejam_chairgame/Library/PackageCache/com.unity.ext.nunit@1.0.5/net35/unity-custom/nunit.framework.dll</HintPath>
+      <HintPath>D:/git/GameJam2021_6_TeamG/Library/PackageCache/com.unity.ext.nunit@1.0.5/net35/unity-custom/nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>D:/UnityFile/2019.4.16f1/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>
@@ -603,31 +617,31 @@
       <HintPath>D:/UnityFile/2019.4.16f1/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Xml.Serialization.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline.Editor">
-      <HintPath>D:/git/gamejam_chairgame/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+      <HintPath>D:/git/GameJam2021_6_TeamG/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
-      <HintPath>D:/git/gamejam_chairgame/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+      <HintPath>D:/git/GameJam2021_6_TeamG/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>D:/git/gamejam_chairgame/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>D:/git/GameJam2021_6_TeamG/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>D:/git/gamejam_chairgame/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+      <HintPath>D:/git/GameJam2021_6_TeamG/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline">
-      <HintPath>D:/git/gamejam_chairgame/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+      <HintPath>D:/git/GameJam2021_6_TeamG/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>D:/git/gamejam_chairgame/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>D:/git/GameJam2021_6_TeamG/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Rider.Editor">
-      <HintPath>D:/git/gamejam_chairgame/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+      <HintPath>D:/git/GameJam2021_6_TeamG/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>D:/git/gamejam_chairgame/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>D:/git/GameJam2021_6_TeamG/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
-      <HintPath>D:/git/gamejam_chairgame/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+      <HintPath>D:/git/GameJam2021_6_TeamG/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup></ItemGroup>
