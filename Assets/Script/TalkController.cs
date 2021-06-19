@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace ReadTalk
 {
@@ -33,11 +34,10 @@ namespace ReadTalk
             public float number;
             public string title;
             public string music;
-            public List<ScnarioTalk> scnariomain;
-            
+            public ScenarioTalk[] scenariomain;
         }
         //シナリオ本文(表情差分,セリフ)
-        public class ScnarioTalk
+        public class ScenarioTalk
         {
             public string face;
             public string talk;
@@ -47,18 +47,22 @@ namespace ReadTalk
         private Object[] allscenario_obj;
         private string[] allscenario_txt;
 
-        private Scenario[] scenarios;
-
-        int scenario_num;
+        //シナリオ
+        public Scenario[] scenarios;
+        //シナリオの数
+        public int scenario_num;
 
 
         private void Awake()
         {
+            //シナリオをデータにする
             GetScenario();
+            //シナリオ番号で入れかえ
+            TextNumberSort();
         }
 
         //全てのシナリオをstringとして取得
-        void GetScenario()
+        private void GetScenario()
         {
             allscenario_obj = Resources.LoadAll("Scenario",typeof(TextAsset));
             scenario_num = allscenario_obj.Length;
@@ -76,7 +80,6 @@ namespace ReadTalk
             {
                 return;
             }
-
         }
         //構造体に文章を入れる
         bool StructiveScenario(string[] scenario_txt)
@@ -85,6 +88,7 @@ namespace ReadTalk
             string[] maintext;
 
             int scenariocount;
+            //各シナリオ
             for (scenariocount = 0; scenariocount < scenario_num; scenariocount++)
             {
                 string[] splittext = scenario_txt[scenariocount].Split(splitword[(int)splitpoint.over], System.StringSplitOptions.RemoveEmptyEntries);
@@ -93,8 +97,9 @@ namespace ReadTalk
                     Debug.LogError(scenariocount + "scenario" + "ScenarioTextError(---)");
                     return false;
                 }
-
+                //設定
                 SettingStruct(splittext[0]);
+                //メインシナリオ
                 MainStruct(splittext[1]);
                 
             }
@@ -186,32 +191,33 @@ namespace ReadTalk
                 return true;
             }
 
+            //Main
             bool MainStruct(string text)
             {
+                //:ごとに文章を分ける
                 maintext = text.Trim().Split(splitword[(int)splitpoint.main], System.StringSplitOptions.RemoveEmptyEntries);
                 string[] onetalk;
                 int talkcount;
-
-                for(talkcount = 0; talkcount < maintext.Length; talkcount++)
+               
+                for (talkcount = 0; talkcount < maintext.Length; talkcount++)
                 {
-                    scenarios[scenariocount].scnariomain.Add(new ScnarioTalk());
-                    onetalk = maintext[scenariocount].Trim().Split(splitword[(int)splitpoint.face_text], System.StringSplitOptions.RemoveEmptyEntries);
-                    if (!Face())
+
+                    ScenarioTalk onemain = new ScenarioTalk();
+                    onetalk = maintext[talkcount].Trim().Split(splitword[(int)splitpoint.face_text], System.StringSplitOptions.RemoveEmptyEntries);
+                    if (!Face(onemain) || !Talk(onemain))
                     {
                         return false;
                     }
-                    if (!Talk())
-                    {
-                        return false;
-                    }
+                    System.Array.Resize(ref scenarios[scenariocount].scenariomain,talkcount + 1);
+                    scenarios[scenariocount].scenariomain[talkcount] = onemain;
                 }
 
-                bool Face()
+                bool Face(ScenarioTalk main)
                 {
-                    scenarios[scenariocount].scnariomain[talkcount].face = onetalk[0];
+                    main.face = onetalk[0];
                     return true;
                 }
-                bool Talk()
+                bool Talk(ScenarioTalk main)
                 {
                     string talktext = "";
                     if (onetalk.Length >= 2)
@@ -222,7 +228,7 @@ namespace ReadTalk
                             talktext += "\n" + onetalk[k];
                         }
                     }
-                    scenarios[scenariocount].scnariomain[talkcount].talk = talktext;
+                    main.talk = talktext;
                     return true;
                 }
                 return true;
@@ -233,9 +239,20 @@ namespace ReadTalk
 
 
         //数字と連動でソート
-        void TextNumberSort(int[] text_num, string[] text)
+        void TextNumberSort()
         {
-
+            for(int i = 0; i < scenario_num - 1; i++)
+            {
+                for(int j = i + 1; j < scenario_num; j++)
+                {
+                    if (scenarios[i].number > scenarios[j].number)
+                    {
+                        Scenario change = scenarios[i];
+                        scenarios[i] = scenarios[j];
+                        scenarios[j] = change;
+                    }
+                }
+            }
         }
     }
 }
