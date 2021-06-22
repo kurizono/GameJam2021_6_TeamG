@@ -48,9 +48,9 @@ namespace ReadTalk
         private string[] allscenario_txt;
 
         //シナリオ
-        public Scenario[] scenarios;
+        public static Scenario[] scenarios;
         //シナリオの数
-        public int scenario_num;
+        private int scenario_num;
 
 
         private void Awake()
@@ -61,11 +61,20 @@ namespace ReadTalk
             TextNumberSort();
         }
 
+        //最初に一回のみする奴
+        public void First()
+        {
+            //シナリオをデータにする
+            GetScenario();
+            //シナリオ番号で入れかえ
+            TextNumberSort();
+        }
+
         //全てのシナリオをstringとして取得
         private void GetScenario()
         {
-            allscenario_obj = Resources.LoadAll("Scenario",typeof(TextAsset));
-            scenario_num = allscenario_obj.Length;
+         allscenario_obj = Resources.LoadAll("Scenario",typeof(TextAsset));
+            scenario_num = allscenario_obj.Length;   
             allscenario_txt = new string[scenario_num];
             for (int i = 0; i < scenario_num; i++) { 
                 allscenario_txt[i] = (allscenario_obj[i] as TextAsset).text;
