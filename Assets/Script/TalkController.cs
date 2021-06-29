@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System.Linq;
+﻿using UnityEngine;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace ReadTalk
 {
@@ -35,6 +33,8 @@ namespace ReadTalk
             public string title;
             public string music;
             public ScenarioTalk[] scenariomain;
+            public ScenarioStop stopstart;
+            public ScenarioStop stopend;
         }
         //シナリオ本文(表情差分,セリフ)
         public class ScenarioTalk
@@ -42,7 +42,12 @@ namespace ReadTalk
             public string face;
             public string talk;
         }
-
+        //シナリオの#の位置(セリフ数,セリフの文字数)
+        public class ScenarioStop
+        {
+            public int taiknum = 0;
+            public int charnum = 0;
+        }
 
         private Object[] allscenario_obj;
         private string[] allscenario_txt;
@@ -50,7 +55,7 @@ namespace ReadTalk
         //シナリオ
         public static Scenario[] scenarios;
         //シナリオの数
-        private int scenario_num;
+        public static int scenario_num;
 
 
         private void Awake()
@@ -70,30 +75,34 @@ namespace ReadTalk
             TextNumberSort();
         }
 
+
         //全てのシナリオをstringとして取得
         private void GetScenario()
         {
-         allscenario_obj = Resources.LoadAll("Scenario",typeof(TextAsset));
-            scenario_num = allscenario_obj.Length;   
+            allscenario_obj = Resources.LoadAll("Scenario", typeof(TextAsset));
+            scenario_num = allscenario_obj.Length;
             allscenario_txt = new string[scenario_num];
-            for (int i = 0; i < scenario_num; i++) { 
+            for (int i = 0; i < scenario_num; i++)
+            {
                 allscenario_txt[i] = (allscenario_obj[i] as TextAsset).text;
             }
 
+            //シナリオの構造体を作成
             scenarios = new Scenario[scenario_num];
-            for(int i = 0; i < scenario_num; i++)
+            for (int i = 0; i < scenario_num; i++)
             {
                 scenarios[i] = new Scenario();
+                scenarios[i].stopstart = new ScenarioStop();
+                scenarios[i].stopend = new ScenarioStop();
             }
-            if (!StructiveScenario(allscenario_txt))
-            {
-                return;
-            }
+
+            StructiveScenario(allscenario_txt);
         }
+
         //構造体に文章を入れる
-        bool StructiveScenario(string[] scenario_txt)
+        void StructiveScenario(string[] scenario_txt)
         {
-            
+
             string[] maintext;
 
             int scenariocount;
@@ -104,14 +113,15 @@ namespace ReadTalk
                 if (splittext.Length != 2)
                 {
                     Debug.LogError(scenariocount + "scenario" + "ScenarioTextError(---)");
-                    return false;
+                    return;
                 }
+                
                 //設定
                 SettingStruct(splittext[0]);
-                //メインシナリオ
+                //メインテキスト
                 MainStruct(splittext[1]);
-                
             }
+            StopStruct();
 
             //Setting
             bool SettingStruct(string text)
@@ -207,7 +217,7 @@ namespace ReadTalk
                 maintext = text.Trim().Split(splitword[(int)splitpoint.main], System.StringSplitOptions.RemoveEmptyEntries);
                 string[] onetalk;
                 int talkcount;
-               
+
                 for (talkcount = 0; talkcount < maintext.Length; talkcount++)
                 {
 
@@ -217,7 +227,7 @@ namespace ReadTalk
                     {
                         return false;
                     }
-                    System.Array.Resize(ref scenarios[scenariocount].scenariomain,talkcount + 1);
+                    System.Array.Resize(ref scenarios[scenariocount].scenariomain, talkcount + 1);
                     scenarios[scenariocount].scenariomain[talkcount] = onemain;
                 }
 
@@ -242,17 +252,76 @@ namespace ReadTalk
                 }
                 return true;
             }
-            
-            return true;
+
+            //シナリオの止める場所
+            bool StopStruct()
+            {
+                for (int i = 0; i < scenario_num; i++)
+                {
+                    int count = 0;
+                    for (int j = 0; j < scenarios[i].scenariomain.Length; j++)
+                    {
+                        //#がある行での処理
+                        if (scenarios[i].scenariomain[j].talk.Contains("#"))
+                        {
+                            //同じ行に#が二つあった場合
+                            if (CountChar(scenarios[i].scenariomain[j].talk, '#') == 2)
+                            {
+                                StopstartPoint();
+                                StopendPoint();
+                                count++;
+                            }
+                            else
+                            {
+                                if (count == 0)
+                                {
+                                    StopstartPoint();
+                                }
+                                else
+                                {
+                                    StopendPoint();
+                                }
+                            }
+
+                            void StopstartPoint()
+                            {
+                                scenarios[i].stopstart.taiknum = j;
+                                scenarios[i].stopstart.charnum = scenarios[i].scenariomain[j].talk.IndexOf("#");
+                                scenarios[i].scenariomain[j].talk = scenarios[i].scenariomain[j].talk.Remove(scenarios[i].stopstart.charnum,1);
+                            }
+                            void StopendPoint()
+                            {
+                                scenarios[i].stopend.taiknum = j;
+                                scenarios[i].stopend.charnum = scenarios[i].scenariomain[j].talk.IndexOf("#");
+                                scenarios[i].scenariomain[j].talk = scenarios[i].scenariomain[j].talk.Remove(scenarios[i].stopend.charnum, 1);
+                            }
+                            count++;
+                        }
+                    }
+                    if (count != 2)
+                    {
+                        Debug.LogError(scenarios[i].scenariomain[0].talk + "で始まるシナリオの#の数が不正:" + count);
+                        return false;
+                    }
+                }
+
+                int CountChar(string s, char c)
+                {
+                    return s.Length - s.Replace(c.ToString(), "").Length;
+                }
+
+
+                return true;
+            }
         }
 
 
         //数字と連動でソート
         void TextNumberSort()
         {
-            for(int i = 0; i < scenario_num - 1; i++)
+            for (int i = 0; i < scenario_num - 1; i++)
             {
-                for(int j = i + 1; j < scenario_num; j++)
+                for (int j = i + 1; j < scenario_num; j++)
                 {
                     if (scenarios[i].number > scenarios[j].number)
                     {

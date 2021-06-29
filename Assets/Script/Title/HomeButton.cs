@@ -6,7 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class HomeButton : MonoBehaviour
 {
-    TitleController Controllercs; 
+    TitleController Controllercs;
+    StorySelect StorySelectcs;
 
     [SerializeField]
     Button Button_start, Button_story, Button_option, Button_quit;
@@ -15,6 +16,7 @@ public class HomeButton : MonoBehaviour
     void Awake()
     {
         Controllercs = GetComponent<TitleController>();
+        StorySelectcs = GetComponent<StorySelect>();
     }
     void Start()
     {
@@ -26,6 +28,7 @@ public class HomeButton : MonoBehaviour
     void StartClick()
     {
         Debug.Log("start");
+        StorySelectcs.StoryRandom();
         SceneManager.LoadScene("Game01");
 
     }

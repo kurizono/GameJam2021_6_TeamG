@@ -75,6 +75,7 @@
     <Compile Include="Assets\Script\Title\HomeButton.cs" />
     <Compile Include="Assets\Script\Title\OptionButton.cs" />
     <Compile Include="Assets\Script\Title\StoryButton.cs" />
+    <Compile Include="Assets\Script\Title\StorySelect.cs" />
     <Compile Include="Assets\Script\Title\TitleController.cs" />
     <None Include="Assets\Resources\シナリオ1.txt" />
     <None Include="Assets\Resources\Scenario\K_シナリオ04.txt" />

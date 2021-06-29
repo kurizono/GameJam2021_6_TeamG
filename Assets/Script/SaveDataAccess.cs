@@ -9,7 +9,7 @@ namespace DataControll
 
     public class SaveDataAccess : MonoBehaviour
     {
-        enum savedatanum
+        public enum savedatanum
         {
             win,
             lose
@@ -23,7 +23,7 @@ namespace DataControll
         {
             public int[] save;
         }
-        SaveData MySaveData = new SaveData();
+        public static SaveData MySaveData = new SaveData();
 
         string savedatapath;
 
@@ -58,6 +58,12 @@ namespace DataControll
             writer.Write(jsonstr);
             writer.Flush();
             writer.Close();
+        }
+
+        //勝利時のセーブデータ書き換え
+        public static void WinData(int scenario_win)
+        {
+            MySaveData.save[scenario_win] = (int)savedatanum.win;
         }
 
         //デバッグ用(データが増えるごとにやること)
