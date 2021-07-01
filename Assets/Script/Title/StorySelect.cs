@@ -19,12 +19,10 @@ public class StorySelect : MonoBehaviour
     public void StoryRandom()
     {
         scenario_now = Random.Range(0,scenario_num);
-        Debug.Log(scenario_num);
-        Debug.Log(scenario_now);
     }
     //ストーリーを選ぶ場合
-    public void StoryCheck()
+    public void StoryCheck(int scenarionum)
     {
-        scenario_now = 1;
+        scenario_now = scenarionum;
     }
 }

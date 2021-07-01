@@ -27,7 +27,6 @@ public class HomeButton : MonoBehaviour
     }
     void StartClick()
     {
-        Debug.Log("start");
         StorySelectcs.StoryRandom();
         SceneManager.LoadScene("Game01");
 
