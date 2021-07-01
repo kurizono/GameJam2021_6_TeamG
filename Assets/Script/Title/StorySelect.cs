@@ -4,6 +4,7 @@ using UnityEngine;
 using ReadTalk;
 using DataControll;
 
+//タイトルでStoryを選択する
 public class StorySelect : MonoBehaviour
 {
     int scenario_num = 0;

@@ -64,13 +64,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Script\CharaTalk.cs" />
     <Compile Include="Assets\Script\Game\CharaController.cs" />
     <Compile Include="Assets\Script\Game\CharaStop.cs" />
+    <Compile Include="Assets\Script\Game\CharaTalk.cs" />
     <Compile Include="Assets\Script\Game\CharaTurn.cs" />
-    <Compile Include="Assets\Script\Music.cs" />
+    <Compile Include="Assets\Script\Game\GameMusic.cs" />
+    <Compile Include="Assets\Script\Game\TimeContoller.cs" />
     <Compile Include="Assets\Script\SaveDataAccess.cs" />
     <Compile Include="Assets\Script\TalkController.cs" />
+    <Compile Include="Assets\Script\Title\ButtonEfect.cs" />
     <Compile Include="Assets\Script\Title\FirstActionController.cs" />
     <Compile Include="Assets\Script\Title\HomeButton.cs" />
     <Compile Include="Assets\Script\Title\OptionButton.cs" />

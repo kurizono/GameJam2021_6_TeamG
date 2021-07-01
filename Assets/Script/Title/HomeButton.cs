@@ -11,8 +11,8 @@ public class HomeButton : MonoBehaviour
 
     [SerializeField]
     Button Button_start, Button_story, Button_option, Button_quit;
-    
-    
+
+
     void Awake()
     {
         Controllercs = GetComponent<TitleController>();

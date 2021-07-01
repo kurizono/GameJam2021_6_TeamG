@@ -38,6 +38,7 @@ public class CharaController : MonoBehaviour
         time += Time.deltaTime;
         deltatile = Time.deltaTime;
 
+        //キャラが周りを回るかの判定
         if (! stoped) { CharaTurncs.Turn(); }
         if (CharaStopcs.Stop()){ stoped = true; }
     }
