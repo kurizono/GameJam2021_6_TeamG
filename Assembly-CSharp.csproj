@@ -67,7 +67,7 @@
     <Compile Include="Assets\Script\Game\CharaController.cs" />
     <Compile Include="Assets\Script\Game\CharaStop.cs" />
     <Compile Include="Assets\Script\Game\CharaTalk.cs" />
-    <Compile Include="Assets\Script\Game\CharaTurn.cs" />
+    <Compile Include="Assets\Script\Game\GameController.cs" />
     <Compile Include="Assets\Script\Game\GameMusic.cs" />
     <Compile Include="Assets\Script\Game\TimeContoller.cs" />
     <Compile Include="Assets\Script\SaveDataAccess.cs" />

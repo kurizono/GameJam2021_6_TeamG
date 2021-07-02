@@ -12,15 +12,10 @@ public class ShowAllStory : MonoBehaviour
     //最後のページのタイトル数
     int lastpagetitle;
 
-    private void Start()
-    {
-        pagenum = ((TalkController.scenario_num - 1) / looktitlenum) + 1;
-        lastpagetitle = (TalkController.scenario_num - 1) % looktitlenum + 1;
-    }
-
     //ページの総数
     public int AllPageNum()
     {
+        pagenum = ((TalkController.scenario_num - 1) / looktitlenum) + 1;
         return pagenum;
     }
 
@@ -35,8 +30,9 @@ public class ShowAllStory : MonoBehaviour
     //次に表示するシナリオタイトルの数
     public int Look_titlenum(int gopage)
     {
-        int titlenum = 4;
-        if(gopage == pagenum) 
+        int titlenum = looktitlenum;
+        lastpagetitle = (TalkController.scenario_num - 1) % looktitlenum + 1;
+        if (gopage == pagenum) 
         {
             titlenum = lastpagetitle;
         }

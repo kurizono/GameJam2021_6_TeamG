@@ -90,7 +90,7 @@ public class StoryButton : MonoBehaviour
         //前へボタンを表示
         Button_Pre.gameObject.SetActive(true);
         //次が最終ページの場合
-        if (nowpage == allpage)
+        if (nowpage >= allpage)
         {
             Button_Post.gameObject.SetActive(false);
             Text_Post.color = ButtonEfect.offcolor;
@@ -103,6 +103,9 @@ public class StoryButton : MonoBehaviour
             }
         }
         ChangeTitle();
+
+        Debug.Log(allpage);
+        Debug.Log(nowpage);
     }
 
     //ゲームボタンの挙動

@@ -57,14 +57,14 @@ namespace ReadText
 
 		}
 
-        private void Update()
+
+		public void NovelContinue(float time)
         {
-            if(Timecs.time > NextCharTime　&& !finish)
+			if (time > NextCharTime && !finish)
             {
 				Novel();
             }
         }
-
 
 
 		private void Novel()

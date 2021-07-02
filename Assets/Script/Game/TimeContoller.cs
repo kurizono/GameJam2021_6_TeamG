@@ -5,7 +5,7 @@ using UnityEngine;
 public class TimeContoller : MonoBehaviour
 {
     //時間
-    public float time;
+    public float time, deltatime;
 
     //音楽を流す時間を計算
 
@@ -15,8 +15,11 @@ public class TimeContoller : MonoBehaviour
     //テキスト間の間
     float novelSpace = 0.5f;
 
+    //魔王が止まるまでの間隔
+    float[] kingstop = new float[2] {0.3f,0.5f};
+
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         time = 0;
     }
@@ -25,11 +28,12 @@ public class TimeContoller : MonoBehaviour
     void Update()
     {
         time += Time.deltaTime;
+        deltatime = Time.deltaTime;
     }
 
 
-    //音楽が止まる時間を取得(止まる最初の時間,止まる最後の時間)
-    public float[] Musictime()
+    //音楽が止まる時間を取得
+    public float Musictime()
     {
         int Num = StorySelect.scenario_now;
         int[,] stopnum = new int[2, 2];
@@ -38,21 +42,29 @@ public class TimeContoller : MonoBehaviour
         stopnum[1, 0] = ReadTalk.TalkController.scenarios[Num].stopend.taiknum;
         stopnum[1, 1] = ReadTalk.TalkController.scenarios[Num].stopend.charnum;
 
-        float[] musicstoptime = new float[2];
+        float[] musicstoprange = new float[2];
 
-        for (int i = 0; i < musicstoptime.Length; i++)
+        for (int i = 0; i < musicstoprange.Length; i++)
         {
-            musicstoptime[i] = 0;
+            musicstoprange[i] = 0;
             for (int j = 0; j < stopnum[i, 0]; j++)
             {
-                musicstoptime[i] += ReadTalk.TalkController.scenarios[Num].scenariomain[j].talk.Length * novelSpeed;
-                musicstoptime[i] += novelSpace;
+                musicstoprange[i] += ReadTalk.TalkController.scenarios[Num].scenariomain[j].talk.Length * novelSpeed;
+                musicstoprange[i] += novelSpace;
             }
-            musicstoptime[i] += stopnum[i, 1] * novelSpeed;
+            musicstoprange[i] += stopnum[i, 1] * novelSpeed;
         }
+
+        float musicstoptime = Random.Range(musicstoprange[0], musicstoprange[1]);
         return musicstoptime;
     }
 
+    //魔王が止まる時間を取得
+    public float Kingtime(float musicstoptime)
+    {
+        float kingstoptime = musicstoptime + kingstop[1];
+        return kingstoptime;
+    }
 
     //速さを取得する
     public float GetnovelSpeed()
@@ -63,4 +75,5 @@ public class TimeContoller : MonoBehaviour
     {
         return novelSpace;
     }
+
 }
