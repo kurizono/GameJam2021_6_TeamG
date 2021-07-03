@@ -64,35 +64,49 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Script\ButtonEfect.cs" />
+    <Compile Include="Assets\Script\FaceController.cs" />
     <Compile Include="Assets\Script\Game\CharaController.cs" />
     <Compile Include="Assets\Script\Game\CharaStop.cs" />
     <Compile Include="Assets\Script\Game\CharaTalk.cs" />
     <Compile Include="Assets\Script\Game\GameController.cs" />
     <Compile Include="Assets\Script\Game\GameMusic.cs" />
     <Compile Include="Assets\Script\Game\TimeContoller.cs" />
+    <Compile Include="Assets\Script\Game\WinEffect.cs" />
+    <Compile Include="Assets\Script\Result\BossEffect.cs" />
+    <Compile Include="Assets\Script\Result\CharColor.cs" />
+    <Compile Include="Assets\Script\Result\ReturnTitle.cs" />
     <Compile Include="Assets\Script\SaveDataAccess.cs" />
     <Compile Include="Assets\Script\TalkController.cs" />
-    <Compile Include="Assets\Script\Title\ButtonEfect.cs" />
+    <Compile Include="Assets\Script\Tell\GoNextScene.cs" />
     <Compile Include="Assets\Script\Title\FirstActionController.cs" />
     <Compile Include="Assets\Script\Title\HomeButton.cs" />
+    <Compile Include="Assets\Script\Title\Music.cs" />
     <Compile Include="Assets\Script\Title\OptionButton.cs" />
     <Compile Include="Assets\Script\Title\ShowAllStory.cs" />
     <Compile Include="Assets\Script\Title\StoryButton.cs" />
     <Compile Include="Assets\Script\Title\StorySelect.cs" />
     <Compile Include="Assets\Script\Title\TitleController.cs" />
-    <None Include="Assets\Resources\シナリオ1.txt" />
+    <Compile Include="Assets\Script\Tutorial\Tutorial_Controller.cs" />
+    <Compile Include="Assets\Script\Tutorial\Tutorial_Speak.cs" />
+    <Compile Include="Assets\Script\Tutorial\Tutorial_Talk.cs" />
     <None Include="Assets\Resources\Scenario\K_シナリオ04.txt" />
     <None Include="Assets\Resources\Scenario\K_シナリオ02.txt" />
-    <None Include="Assets\Resources\Scenario\シナリオ7.txt" />
-    <None Include="Assets\Resources\Scenario\シナリオ2.txt" />
-    <None Include="Assets\Resources\Scenario\シナリオ4.txt" />
+    <None Include="Assets\Resources\Scenario\Scenario3.txt" />
+    <None Include="Assets\Resources\Scenario\Scenario1.txt" />
+    <None Include="Assets\Resources\Tutorial\Tutorial_set.txt" />
     <None Include="Assets\Resources\Scenario\K_シナリオ01.txt" />
-    <None Include="Assets\Resources\Scenario\シナリオ5.txt" />
-    <None Include="Assets\Resources\Scenario\シナリオ3.txt" />
+    <None Include="Assets\Resources\Scenario\Scenario6.txt" />
+    <None Include="Assets\Resources\Facename_Form.txt" />
+    <None Include="Assets\Resources\Scenario\Scenario7.txt" />
+    <None Include="Assets\Resources\Scenario\Scenario2.txt" />
     <None Include="Assets\Resources\テンプレート.txt" />
-    <None Include="Assets\Resources\Scenario\シナリオ6.txt" />
-    <None Include="Assets\Resources\memo3.txt" />
+    <None Include="Assets\Resources\Scenario\Scenario4.txt" />
+    <None Include="Assets\Resources\Tutorial\Tutorial_Pre.txt" />
+    <None Include="Assets\Resources\Scenario\Scenario5.txt" />
+    <None Include="Assets\Resources\Scenario\memiku.txt" />
     <None Include="Assets\Resources\Scenario\K_シナリオ03.txt" />
+    <None Include="Assets\Resources\Tutorial\Tutorial_main.txt" />
     <Reference Include="UnityEngine">
       <HintPath>D:/UnityFile/2019.4.16f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>

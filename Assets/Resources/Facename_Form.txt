@@ -1,0 +1,15 @@
+Tellmia_Default, [真顔]
+Tellmia_Cry, [泣く]
+Tellmia_Sad,[悲しい]
+Tellmia_Happy, [笑顔]
+Tellmia_Doya, [どや顔]
+Tellemia,[照れる]
+Tellmia_Yandere, [ヤンデレ]
+BlackTellmia,[黒塗り]
+Boss, [魔王]
+No image, [無し]
+Nyaa, [にゃあ]
+
+
+
+

@@ -6,6 +6,8 @@ namespace ReadTalk
 {
     public class TalkController : MonoBehaviour
     {
+        FaceController facecs;
+
         enum splitpoint
         {
             over,
@@ -22,9 +24,16 @@ namespace ReadTalk
             new string[]{"\n"},
         };
 
+
         //フォルダ内のシナリオを全て読み込む
         //シナリオ番号ごとに順番を付ける
         //全てのタイトルとシナリオを保存する
+
+
+        private void Awake()
+        {
+            facecs = GetComponent<FaceController>();
+        }
 
         //シナリオ(シナリオ番号(float),シナリオタイトル(string),シナリオ使用音楽(string),シナリオ本文(list[]))
         public class Scenario
@@ -39,7 +48,7 @@ namespace ReadTalk
         //シナリオ本文(表情差分,セリフ)
         public class ScenarioTalk
         {
-            public string face;
+            public int face;
             public string talk;
         }
         //シナリオの#の位置(セリフ数,セリフの文字数)
@@ -48,6 +57,10 @@ namespace ReadTalk
             public int taiknum = 0;
             public int charnum = 0;
         }
+
+        //顏差分対応表
+        string[,] facesform;
+        string[] onefaceform;
 
         private Object[] allscenario_obj;
         private string[] allscenario_txt;
@@ -58,14 +71,6 @@ namespace ReadTalk
         public static int scenario_num;
 
 
-        private void Awake()
-        {
-            //シナリオをデータにする
-            GetScenario();
-            //シナリオ番号で入れかえ
-            TextNumberSort();
-        }
-
         //最初に一回のみする奴
         public void First()
         {
@@ -73,6 +78,33 @@ namespace ReadTalk
             GetScenario();
             //シナリオ番号で入れかえ
             TextNumberSort();
+        }
+
+        //顏差分対応表を取得
+        private void GetFaceForm()
+        {
+            object faceform_obj = Resources.Load("Facename_Form", typeof(TextAsset));
+            string faceform_str = (faceform_obj as TextAsset).text;
+            string[] splitfaceformword = { "\n" };
+            onefaceform = faceform_str.Trim().Split(splitfaceformword, System.StringSplitOptions.RemoveEmptyEntries);
+
+            string[] splitonefaceformword = { "," };
+            facesform = new string[onefaceform.Length, 2];
+            for (int formnum = 0; formnum < onefaceform.Length; formnum++)
+            {
+                string[] nowfaceform = onefaceform[formnum].Trim().Split(splitonefaceformword, System.StringSplitOptions.RemoveEmptyEntries);
+                if (nowfaceform.Length != 2)
+                {
+                    Debug.LogError("顔差文対応表の" + formnum + "行目が不正です");
+                    break;
+                }
+                for (int i = 0; i < 2; i++)
+                {
+                    nowfaceform[i]  = nowfaceform[i].Trim();
+                    facesform[formnum, i] = nowfaceform[i];
+                }
+            }
+
         }
 
 
@@ -230,11 +262,24 @@ namespace ReadTalk
                     System.Array.Resize(ref scenarios[scenariocount].scenariomain, talkcount + 1);
                     scenarios[scenariocount].scenariomain[talkcount] = onemain;
                 }
-
+                //顏差分対応表に合わせて書き換える
                 bool Face(ScenarioTalk main)
                 {
-                    main.face = onetalk[0];
-                    return true;
+                    GetFaceForm();
+
+                    onetalk[0] = onetalk[0].Trim();
+
+                    for(int i = 0; i < facesform.GetLength(0); i++)
+                    {
+                        if (onetalk[0] == facesform[i, 1])
+                        {
+                            facecs = GetComponent<FaceController>();
+                            main.face = facecs.GetFaceNum(facesform[i, 0]);
+                            return true;
+                        }
+                    }
+                    Debug.LogError(onetalk[0] + "は顏差分対応表に記載のない表情です");
+                    return false;
                 }
                 bool Talk(ScenarioTalk main)
                 {

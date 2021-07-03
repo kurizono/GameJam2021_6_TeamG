@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class GameMusic : MonoBehaviour
 {
+    
     TimeContoller Timecs;
 
     [SerializeField]
     AudioClip[] musics;
     [SerializeField]
-    AudioSource musicaudio;
+    AudioClip SE01, SE02;
+    [SerializeField]
+    AudioSource musicaudio, se;
     
     //シナリオに合わせて音楽を選択
     //音楽を流す時間に合わせて音楽をストップ
@@ -17,19 +20,15 @@ public class GameMusic : MonoBehaviour
     private void Awake()
     {
         Timecs = GetComponent<TimeContoller>();
+
         musicaudio.loop = true;
+        musicaudio.volume = 0.01f * OptionButton.MusicSound;
+        se.volume = 0.01f * OptionButton.MusicSound;
         GetMusic();
     }
     private void Start()
     {
         StartMusic();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        float time = GetTime();
-
     }
 
     //音楽をAssetから変換
@@ -58,11 +57,7 @@ public class GameMusic : MonoBehaviour
         float musicstoptime = Timecs.Musictime();
         return musicstoptime;
     }
-    //時間を取得
-    float GetTime()
-    {
-        return Timecs.time;
-    }
+
     //音楽を止める
     public void StopMusic()
     {
@@ -89,5 +84,14 @@ public class GameMusic : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void StartWinSE()
+    {
+        se.PlayOneShot(SE01);
+    }
+    public void StartDefeatSE()
+    {
+        se.PlayOneShot(SE02);
     }
 }

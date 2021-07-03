@@ -23,7 +23,7 @@ public class ShowAllStory : MonoBehaviour
     public string Scenario_title(int num)
     {
         string titlename = TalkController.scenarios[num].title;
-        string titleshowname = " No." + num + ":" + titlename;
+        string titleshowname = " No." + (num + 1) + ":" + titlename;
         return titleshowname;
     }
 

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TimeContoller : MonoBehaviour
 {
+    CharaController characs;
+
     //時間
     public float time, deltatime;
 
@@ -11,16 +13,22 @@ public class TimeContoller : MonoBehaviour
 
     //喋る時間
     //一文字一文字の表示する速さ
-    float novelSpeed = 0.01f;
+    float novelSpeed;
     //テキスト間の間
-    float novelSpace = 0.5f;
+    float novelSpace;
 
     //魔王が止まるまでの間隔
-    float[] kingstop = new float[2] {0.3f,0.5f};
+    float[] bossstop = new float[3] { 1f, 0.6f, 0.3f };
+    float bossstoptime;
 
     // Start is called before the first frame update
     void Awake()
     {
+        characs = GetComponent<CharaController>();
+
+        novelSpeed = OptionButton.textcharspeed;
+        novelSpace = OptionButton.textspacespeed;
+        bossstoptime = bossstop[OptionButton.Mode - 1];   //魔王が止まるまでの間隔
         time = 0;
     }
 
@@ -62,7 +70,7 @@ public class TimeContoller : MonoBehaviour
     //魔王が止まる時間を取得
     public float Kingtime(float musicstoptime)
     {
-        float kingstoptime = musicstoptime + kingstop[1];
+        float kingstoptime = musicstoptime + bossstoptime;
         return kingstoptime;
     }
 

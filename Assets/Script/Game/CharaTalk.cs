@@ -13,6 +13,10 @@ namespace ReadText
 		//　読み込んだテキストを出力するUIテキスト
 		[SerializeField]
 		private Text dataText;
+		//表情
+		[SerializeField]
+		private SpriteRenderer Face;
+		
 		//一文字一文字の表示する速さ
 		float novelSpeed;
 		//テキスト間の間
@@ -25,6 +29,9 @@ namespace ReadText
 		//現在表示中文字番号
 		private int charCount;
 
+		private int[] onetalkFace;
+ 		
+		
 		//次の文字を表示する時間
 		private float NextCharTime = 0;
 
@@ -34,14 +41,14 @@ namespace ReadText
         private void Awake()
         {
 			Timecs = GetComponent<TimeContoller>();
-        }
+		}
 
         void Start()
 		{
 			//テキストの速さを取得
 			novelSpeed = Timecs.GetnovelSpeed();
 			novelSpace = Timecs.GetnovelSpace();
-
+			
 			//テキストの数
 			int text_num = TalkController.scenarios[StorySelect.scenario_now].scenariomain.Length;
 			splitText = new string[text_num];
@@ -53,11 +60,19 @@ namespace ReadText
 			charCount = 0;
 			dataText.text = "";
 
+			//顏
+			onetalkFace = new int[text_num];
+			for(int i = 0; i < text_num; i++)
+            {
+				onetalkFace[i] = TalkController.scenarios[StorySelect.scenario_now].scenariomain[i].face;
+            }
+			Face.sprite = FaceController.CharaFaces[onetalkFace[0]];
+
 			finish = false;
 
 		}
 
-
+		//表示し続けるかの判定
 		public void NovelContinue(float time)
         {
 			if (time > NextCharTime && !finish)
@@ -66,9 +81,11 @@ namespace ReadText
             }
         }
 
-
+		//表示メソッド
 		private void Novel()
         {
+			//文字の変更
+			//文字の追加
 			if (splitText[textCount].Length > charCount)
 			{
 				if(charCount == 0)
@@ -78,9 +95,10 @@ namespace ReadText
 				dataText.text += splitText[textCount][charCount];
 				charCount++;
 			}
-			
+			//テキストが変わる
             else
             {
+				Face.sprite = FaceController.CharaFaces[onetalkFace[textCount]];
 				textCount++;
 				charCount = 0;
             }

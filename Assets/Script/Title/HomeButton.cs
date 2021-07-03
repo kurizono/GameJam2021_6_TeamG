@@ -10,7 +10,7 @@ public class HomeButton : MonoBehaviour
     StorySelect StorySelectcs;
 
     [SerializeField]
-    Button Button_start, Button_story, Button_option, Button_quit;
+    Button Button_Tutorial, Button_start, Button_story, Button_option, Button_quit;
 
 
     void Awake()
@@ -20,16 +20,21 @@ public class HomeButton : MonoBehaviour
     }
     void Start()
     {
+        Button_Tutorial.onClick.AddListener(Tutorial_Click);
         Button_start.onClick.AddListener(StartClick);
         Button_story.onClick.AddListener(StoryClick);
         Button_option.onClick.AddListener(OptionClick);
         Button_quit.onClick.AddListener(QuitClick);
     }
+
+    void Tutorial_Click()
+    {
+        SceneManager.LoadScene("Tutorial");
+    }
     void StartClick()
     {
         StorySelectcs.StoryRandom();
-        SceneManager.LoadScene("Game01");
-
+        SceneManager.LoadScene("Tell");
     }
     void StoryClick()
     {

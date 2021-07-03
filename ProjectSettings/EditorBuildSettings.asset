@@ -9,6 +9,18 @@ EditorBuildSettings:
     path: Assets/Scenes/Title.unity
     guid: cf9ecc4aeb652254da7d4af008b0ab69
   - enabled: 1
+    path: Assets/Scenes/Tutorial.unity
+    guid: 40a9453762996a4489c2b7144da54cc2
+  - enabled: 1
+    path: Assets/Scenes/Tell.unity
+    guid: 12bb18243d1720f49ab1fc705da3ccee
+  - enabled: 1
     path: Assets/Scenes/Game01.unity
     guid: eccdb63b9e038394d8cf8df013d2ef37
+  - enabled: 1
+    path: Assets/Scenes/Win.unity
+    guid: 1f17a630f7eb18748b61feb97ba943dc
+  - enabled: 1
+    path: Assets/Scenes/Defeat.unity
+    guid: bcbe3a210a74cf5449c9336f3719a9bd
   m_configObjects: {}

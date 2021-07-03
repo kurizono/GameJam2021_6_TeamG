@@ -4,12 +4,6 @@ using UnityEngine;
 
 public class CharaStop : MonoBehaviour
 {
-    public CharaController CharaControllercs;
-
-    void Start()
-    {
-        CharaControllercs = GetComponent<CharaController>();
-    }
 
 
     // Update is called once per frame

@@ -103,19 +103,14 @@ public class StoryButton : MonoBehaviour
             }
         }
         ChangeTitle();
-
-        Debug.Log(allpage);
-        Debug.Log(nowpage);
     }
 
     //ゲームボタンの挙動
     void GameClick(int gamenum)
     {
-        Debug.Log("Gamenum" + gamenum);
         int selectnum = ButtonTitleNum(gamenum);
         Selectcs.StoryCheck(selectnum);
-        Debug.Log(selectnum);
-        SceneManager.LoadScene("Game01");
+        SceneManager.LoadScene("Tell");
     }
 
     //戻るボタンの挙動

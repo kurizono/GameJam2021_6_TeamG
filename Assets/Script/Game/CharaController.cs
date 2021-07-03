@@ -14,23 +14,31 @@ public class CharaController : MonoBehaviour
     }
 
     [SerializeField]
-    public GameObject chair;
+    GameObject chair;
     [SerializeField]
-    public GameObject hero, boss;
+    GameObject hero, boss;
     GameObject[] chara;
 
     [SerializeField]
-    public GameObject hero_chair, boss_chair;
+    GameObject hero_chair, boss_chair;
     GameObject[] chara_chair;
 
+    [SerializeField]
+    Sprite hero01, hero02, boss01, boss02;
+    Sprite[,] chara_Splite;
+
+    SpriteRenderer hero_renderer, boss_renderer;
+    SpriteRenderer[] chara_render;
 
     Vector3 chara_firstposi = new Vector3(0, 0, 0);
-    Vector3 hero_firstposi = new Vector3(0, 1.8f, 0);
-    Vector3 boss_firstposi = new Vector3(0, -1.8f, 0);
+    Vector3 hero_firstposi = new Vector3(0, -1.8f, 0);
+    Vector3 boss_firstposi = new Vector3(0, 1.8f, 0);
 
     float charamove = 45;
 
+    //止まったかどうかの判定
     bool[] stoped = new bool[2] { false, false };
+
 
 
     // Start is called before the first frame update
@@ -41,6 +49,10 @@ public class CharaController : MonoBehaviour
 
         chara = new GameObject[2] { hero, boss };
         chara_chair = new GameObject[2] { hero_chair, boss_chair };
+        chara_Splite = new Sprite[2, 2] { { hero01, hero02 }, { boss01, boss02 } };
+        hero_renderer = hero.gameObject.GetComponent<SpriteRenderer>();
+        boss_renderer = boss.gameObject.GetComponent<SpriteRenderer>();
+        chara_render = new SpriteRenderer[2] { hero_renderer, boss_renderer };
 
         hero.transform.localPosition = hero_firstposi;
         boss.transform.localPosition = boss_firstposi;
@@ -51,7 +63,8 @@ public class CharaController : MonoBehaviour
         //キャラが周りを回るかの判定
         if (!stoped[(int)Chara.hero]) 
         {
-            Turn(hero_chair); 
+            Turn(chara_chair[(int)Chara.hero], chara[(int)Chara.hero], (int)Chara.hero); 
+            
         }
         if (CharaStopcs.Stop()) 
         { 
@@ -62,7 +75,7 @@ public class CharaController : MonoBehaviour
     {
         if (!stoped[(int)Chara.boss]) 
         {
-            Turn(boss_chair);
+            Turn(chara_chair[(int)Chara.boss], chara[(int)Chara.boss], (int)Chara.boss);
         }
     }
 
@@ -76,9 +89,18 @@ public class CharaController : MonoBehaviour
     }
 
     //キャラを回す
-    public void Turn(GameObject chara)
+    public void Turn(GameObject chair_chara, GameObject chara, int charanum)
     {
-        chara.transform.Rotate(new Vector3(0, 0, 1), charamove * timecs.deltatime);
+        if (timecs.time % 1 > 0.5f)
+        {
+            chara_render[charanum].sprite = chara_Splite[charanum, 0];
+        }
+        else
+        {
+            chara_render[charanum].sprite = chara_Splite[charanum, 1];
+        }
+        chair_chara.transform.Rotate(new Vector3(0, 0, 1), charamove * timecs.deltatime);
+        chara.transform.Rotate(new Vector3(0, 0, -1), charamove * timecs.deltatime);
     }
 
 }
